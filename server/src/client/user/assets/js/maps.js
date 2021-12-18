@@ -32,15 +32,7 @@ function add_marker(latitude,longitude){
     })(marker));
 }
 
-function setup_travel(){
-    //database query results have to be available here
-
-    //
-    initMap(-25.344,131.036,4);
-    add_marker(-25.344,131.036);
-    add_marker(-24.344,130.036);
-    add_marker(-20.344,130.036);
-
+function draw_lines_and_adjust_zoom(){
     const flightPath = new google.maps.Polyline({
         path: coords,
         geodesic: true,
@@ -54,5 +46,43 @@ function setup_travel(){
     bounds.extend(coords[0]);
     bounds.extend(coords[coords.length-1]);
     map.fitBounds(bounds);
+}
+
+function setup_travel(){
+    //database query results have to be available here
+
+    //
+    initMap(-25.344,131.036,4);
+    add_marker(-25.344,131.036);
+    add_marker(-24.344,130.036);
+    add_marker(20.344,0.036);
+
+    draw_lines_and_adjust_zoom();
+    
+}
+
+function add_destination(){
+    $('#addLocation').modal('show');
+}
+
+function update_location(){
+    if(navigator.geolocation){
+        // timeout at 60000 milliseconds (60 seconds)
+        var options = {timeout:60000};
+        navigator.geolocation.getCurrentPosition(pos => {
+            console.log(pos.coords)
+            $("#lat_box").val(pos.coords.latitude);
+            $("#long_box").val(pos.coords.longitude);
+        }, errorHandler, options);
+     } else{
+        alert("Sorry, browser does not support geolocation!");
+     }
+}
+function errorHandler(err) {
+    if(err.code == 1) {
+       alert("Error: Access is denied!");
+    } else if( err.code == 2) {
+       alert("Error: Position is unavailable!");
+    }
 }
 
