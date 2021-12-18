@@ -49,7 +49,7 @@
         }
     </style>
 
-    <script src=assets/js/maps.js></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -60,7 +60,7 @@
     <!-- ======= Header ======= -->
     <header id="header">
         <div class="d-flex flex-column">
-
+            <p id="test">Testing 123</p>
             <div class="profile">
                 <img src="<%=profile_pic%>" alt="" class="img-fluid rounded-circle">
                 <h1 class="text-light"><a href="index.html">
@@ -86,18 +86,27 @@
         <div id="map"></div>
     </main>
 
-    <div id="new_location_button" class="container position-absolute" style="z-index: 1000000; bottom:100px; left:100px">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large
-            modal</button>
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="z-index:1000001"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    ...
-                </div>
+    <!-- Modal -->
+    <div class="modal fade" id="display_modal" tabindex="-1" role="dialog" aria-labelledby="display_modal_title" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="display_modal_title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="display_modal_body">
+            Hello world!
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
+        </div>
     </div>
+
+
     <!-- ======= Footer ======= -->
     <footer id="footer">
         <div class="container">
@@ -130,6 +139,7 @@
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    <script src=assets/js/maps.js></script>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
