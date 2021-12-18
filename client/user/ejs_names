@@ -1,0 +1,25 @@
+<%=profile_pic%>
+<%=name%>
+
+
+<%=port_image%>
+<%=port_link%>
+<%=port_publish%> 
+
+<% for (let i=0;i<num_cards;i++) {%>
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src=<%=port_image%> class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href=<%=port_link%> title="Edit Travel"><i class="bi bi-pencil-square"></i></a>
+                <a href=<%=port_publish%> title="Publish Travel">
+                  <% if(published===true) { %>
+                    <i class="bi bi-box-arrow-up-right"></i>
+                  <% }else{ %>
+                    <i class="bi bi-x-square"></i>
+                  <% } %>
+                </a>
+              </div>
+            </div>
+          </div>
+          <% } %>
