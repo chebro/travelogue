@@ -33,6 +33,13 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <script>
+    function publish(journey_no){
+      document.getElementById("card"+journey_no).innerHTML=<i class="bi bi-box-arrow-up-right"></i>
+      //inform server that travel has been published
+    }
+  </script>
 </head>
 
 <body>
@@ -70,17 +77,17 @@
           <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
         </div>
     
-
-
-        
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
           <% for (let i=0;i<num_cards;i++) {%>
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
               <img src=<%=port_image%> class="img-fluid" alt="">
               <div class="portfolio-links">
-								<a href=<%=`${port_link}/${i}`%> title="Edit Travel"><i class="bi bi-pencil-square"></i></a>
-                <a href="#" title="Publish Travel">
+								<a href=<%=`${port_link}/${i}`%> title="View Travel"><i class="bi bi-eye-fill"></i></i></a>
+                <!-- <a onclick="" title="Publish Travel">
+                  
+                </a> -->
+                <a href='javascript:;' onclick='publish(<%=i%>);' id="card<%=i%>">
                   <% if(port_publish[i]===true) { %>
                     <i class="bi bi-box-arrow-up-right"></i>
                   <% }else{ %>
