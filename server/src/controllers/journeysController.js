@@ -77,7 +77,8 @@ exports.createJourney = wrapAsync(async (req, res) => {
 		title: req.body.jname,
 		description: req.body.jdesc,
 		published: false,
-		destinations: []
+		destinations: [],
+		image: 'https://www.planetware.com/photos-large/CH/switzerland-matterhorn.jpg'
 	})
 	await User.findOneAndUpdate({ name: req.body.name }, userInfo)
 	res.status(200).json({

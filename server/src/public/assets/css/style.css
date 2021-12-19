@@ -10,11 +10,46 @@
 --------------------------------------------------------------*/
 
 @import url('https://fonts.googleapis.com/css2?family=Licorice&family=Monoton&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=JetBrains+Mono:ital,wght@0,300;0,700;1,300;1,700&family=Oswald:wght@300;400;500&display=swap');
 
 body {
-	font-family: 'PT Sans', sans-serif;
+	font-family: 'Oswald', sans-serif;
 	color: #272829;
+}
+
+span {
+	font-family: 'Oswald';
+	font-size: 1.5em
+}
+
+.brand {
+	font-family: 'Monoton';
+	font-size: 2em;
+	color: white;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
+
+.journey-title {
+	font-family: 'Amatic SC';
+	font-size: 2em;
+	font-weight: bold;
+	margin-top: 2em;
+	color: white;
+}
+
+.location-info {
+	font-family: 'JetBrains Mono';
+	font-size: 1.25em;
+}
+
+.location-title {
+	font-family: 'JetBrains Mono';
+	font-size: 1.25em;
+	font-weight: bold;
 }
 
 a {
@@ -33,7 +68,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Oswald', sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -85,8 +120,7 @@ h6 {
 #header .profile img {
 	margin: 15px auto;
 	display: block;
-	width: 120px;
-	border: 8px solid #2c2f3f;
+	width: 150px;
 }
 #header .profile h1 {
 	font-size: 24px;
@@ -95,7 +129,7 @@ h6 {
 	font-weight: 600;
 	-moz-text-align-last: center;
 	text-align-last: center;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Oswald', sans-serif;
 }
 #header .profile h1 a,
 #header .profile h1 a:hover {
@@ -245,7 +279,7 @@ h6 {
 	color: #fff;
 	margin-bottom: 50px;
 	font-size: 26px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Oswald', sans-serif;
 }
 #hero p span {
 	color: #fff;
@@ -365,7 +399,7 @@ section {
 .facts .count-box p {
 	padding: 15px 0 0 0;
 	margin: 0 0 0 60px;
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Oswald', sans-serif;
 	font-size: 14px;
 	color: #122f57;
 }
@@ -375,7 +409,7 @@ section {
 	margin-top: 20px;
 	color: #122f57;
 	font-size: 15px;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Oswald', sans-serif;
 	transition: ease-in-out 0.3s;
 }
 .facts .count-box a:hover {
@@ -436,7 +470,7 @@ section {
 	font-size: 18px;
 	font-weight: 600;
 	text-transform: uppercase;
-	font-family: 'Poppins', sans-serif;
+	font-family: 'Oswald', sans-serif;
 	color: #050d18;
 	margin-bottom: 10px;
 }
