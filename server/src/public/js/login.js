@@ -20,7 +20,7 @@ function checkCredentials() {
 				}, 2000)
 				$('#message').html(data).slideDown(1000)
 			} else {
-				window.location = '/home'
+				window.location = `/${data.data.user.name}/travels`
 			}
 		})
 }

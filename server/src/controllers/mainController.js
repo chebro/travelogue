@@ -4,7 +4,7 @@ const Feed = require('../models/feedModel')
 const wrapAsync = require('../utils/wrapAsync')
 
 exports.getIndex = (_req, res) => {
-	res.status(200).render('index', {})
+	res.redirect(203, '/login')
 }
 
 exports.getLogin = (_req, res) => {
