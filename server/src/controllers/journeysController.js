@@ -75,7 +75,8 @@ exports.createJourney = wrapAsync(async (req, res) => {
 	userInfo.journeys.push({
 		title: req.body.jname,
 		description: req.body.jdesc,
-		published: false
+		published: false,
+		destinations: []
 	})
 	await User.findOneAndUpdate({ name: req.body.name }, userInfo)
 	res.status(200).json({

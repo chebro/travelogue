@@ -45,7 +45,7 @@ exports.getMap = wrapAsync(async (req, res) => {
 
 	const inject = {
 		name,
-		title: user.journeys[journey],
+		title: user.journeys[journey].title,
 		journey_no: journey,
 		profile_pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 	}
@@ -63,7 +63,7 @@ exports.getFeed = wrapAsync(async (req, res) => {
 		author.push(feed[i].authorName)
 		title.push(feed[i].feedTitle)
 		port_image.push(feed[i].feedImage),
-		port_link.push(`/${feed[i].authorName}/journeys/${feed.journey_no}`)	
+		port_link.push(`/${feed[i].authorName}/travels/${feed[i].journey_no}`)	
 	}
 	const inject = {
 		name: req.params.user,
