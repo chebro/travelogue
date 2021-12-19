@@ -53,7 +53,7 @@ exports.addLocation = wrapAsync(async (req, res) => {
 		description: req.body.description,
 	})
 
-	await User.findOneAndUpdate({ user }, userinfo)
+	await User.findOneAndUpdate({ user }, userInfo)
 	res.status(200).json({
 		status:'success'	
 	})
