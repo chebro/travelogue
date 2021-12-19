@@ -72,10 +72,10 @@ exports.createJourney = wrapAsync(async (req, res) => {
 		})
 	}
 	userInfo.journeys.push({
-		name: req.body.jname,
+		title: req.body.jname,
 		description: req.body.jdesc
 	})
-	await User.create({ user }, userInfo)
+	await User.findOneAndUpdate({ name: req.body.name }, userInfo)
 	res.status(200).json({
 		status:'success'	
 	})
