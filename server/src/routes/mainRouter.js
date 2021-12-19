@@ -6,5 +6,6 @@ router.route('/').get(mainController.getIndex)
 router.route('/login').get(mainController.getLogin)
 router.route('/register').get(mainController.getRegister)
 router.route('/:user/travels').get(mainController.getTravels)
+router.route('/:user/travels/:journey').get(mainController.getMap)
 
 module.exports = router
