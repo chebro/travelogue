@@ -4,6 +4,7 @@ var coords = []
 var text = []
 var titles = []
 var map = null
+var flightPath=null
 function initMap(latitude, longitude, zoom) {
 	// The location of Uluru
 	const uluru = { lat: latitude, lng: longitude }
@@ -40,7 +41,9 @@ function add_marker(latitude, longitude,number) {
 }
 
 function draw_lines_and_adjust_zoom() {
-	const flightPath = new google.maps.Polyline({
+
+
+	flightPath = new google.maps.Polyline({
 		path: coords,
 		geodesic: true,
 		strokeColor: '#FF0000',
@@ -85,11 +88,15 @@ function setup_travel() {
 
 function add_destination() {
 	$('#addLocation').modal('show')
+	$('#lat_box').val("")
+	$('#long_box').val("")
+	$('#title_box').val("")
+	$('#msg_box').val("")
 }
 
 function add_destination_loc() {
-	let lat=$('#lat_box').val()
-	let long=$('#long_box').val()
+	let lat=Number($('#lat_box').val())
+	let long=Number($('#long_box').val())
 	let title=$('#title_box').val()
 	let description=$('#msg_box').val()
 	let data={
@@ -107,13 +114,19 @@ function add_destination_loc() {
 		},
 		body: JSON.stringify(data),
 	}).then(function(){
+		console.log("Destination added!");
 		coords.push({
 			lat,
-			long
+			lng:long
 		})
 		text.push(description)
 		titles.push(title)
 		add_marker(lat,long,text.length)
+		alert("Location added!")
+		flightPath.setMap(null)
+		draw_lines_and_adjust_zoom()
+		$('#addLocation').modal('hide')
+
 	})
 }
 

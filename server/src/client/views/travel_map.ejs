@@ -62,7 +62,6 @@
     <!-- ======= Header ======= -->
     <header id="header">
         <div class="d-flex flex-column">
-            <p id="test">Testing 123</p>
             <div class="profile">
                 <img src="<%=profile_pic%>" alt="" class="img-fluid rounded-circle">
                 <h1 class="text-light"><a href="index.html">
@@ -72,15 +71,14 @@
 
             <nav id="navbar" class="nav-menu navbar">
                 <ul>
-                    <li><a href="feed.html" class="nav-link scrollto active"><i class="bx bx-home"></i>
+                    <li><a href="/feed" class="nav-link scrollto active"><i class="bx bx-home"></i>
                             <span>Feed</span></a></li>
-                    <li><a href="fav_places.html" class="nav-link scrollto"><i class="bx bx-user"></i> <span>My
-                                Favourite Places</span></a></li>
-                    <li><a href="travels.html" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>My
+                    <li><a href="/<%=name%>/travels" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>My
                                 Travels</span></a></li>
                 </ul>
             </nav><!-- .nav-menu -->
-
+            
+            <h3 color="red"><%=title%></h3>
             <button type="button" class="btn btn-light" style="margin-top:20vh" onclick="add_destination()">Add New Location</button>
             
         </div>

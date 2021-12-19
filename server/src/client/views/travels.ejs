@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Travel Feed</title>
+  <title>My Travels</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -14,9 +14,11 @@
   <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
- <!-- Vendor CSS Files -->
+  <!-- Vendor CSS Files -->
   <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -35,27 +37,46 @@
   ======================================================== -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
-    function publish(journey_no){
+    var name = "<%=name%>"
+    function publish(journey_no) {
       console.log("hi");
       console.log(document.cookie);
-      document.getElementById("card"+journey_no).innerHTML="<i class=\"bi bi-x-square\"></i>"
-      var name="<%=name%>"
-      var data={
+      document.getElementById("card" + journey_no).innerHTML = "<i class=\"bi bi-x-square\"></i>"
+      var data = {
         name,
         journey_no
       }
       //inform server that travel has been published
       fetch('/api/journeys/publish', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
       })
     }
 
-    function add_journey(){
+    function add_journey() {
       $('#addJourney').modal('show')
+    }
+
+    function add_journey_new() {
+      let jname = $('#jname').val();
+      let jdesc = $('#jdesc').val();
+      let data = {
+        jname,
+        jdesc,
+        name
+      }
+      fetch('/api/journeys/addjourney', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      }).then(function () {
+        location.reload();
+      })
     }
   </script>
 </head>
@@ -71,14 +92,17 @@
 
       <div class="profile">
         <img src="<%=profile_pic%>" alt="" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="index.html" ><%=name%></a></h1>
+        <h1 class="text-light"><a href="index.html">
+            <%=name%>
+          </a></h1>
       </div>
 
       <nav id="navbar" class="nav-menu navbar">
         <ul>
-          <li><a href="feed.html" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Feed</span></a></li>
-          <li><a href="fav_places.html" class="nav-link scrollto"><i class="bx bx-user"></i> <span>My Favourite Places</span></a></li>
-          <li><a href="travels.html" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>My Travels</span></a></li>
+          <li><a href="/feed" class="nav-link scrollto active"><i class="bx bx-home"></i>
+              <span>Feed</span></a></li>
+          <li><a href="/<%=name%>/travels" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>My
+                Travels</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -88,7 +112,6 @@
 
   <main id="main">
 
-   
     <section id="portfolio" class="portfolio section-bg">
       <div class="container">
 
@@ -96,64 +119,73 @@
           <h2>My Travel History</h2>
           <p>Enjoy Reminescening with your Adventures!</p>
         </div>
-    
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100" id="port_cont">
           <% for (let i=0;i<num_cards;i++) {%>
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-              <div>
+            <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+              <div class="portfolio-wrap">
                 <div>
-                  <h3><%=title[i]%></h3>
+                  <div>
+                    <h3>
+                      <%=title[i]%>
+                    </h3>
+                  </div>
+                  <div>
+                    <img src=<%=port_image[i]%> class="img-fluid" style="height:17em; width:40em" alt="">
+                  </div>
+
                 </div>
-                <div>
-                  <img src=<%=port_image%> class="img-fluid" alt="">
+                <div class="portfolio-links">
+                  <a href=<%=`${port_link}${i}`%> title="View Travel"><i class="bi bi-eye-fill"></i></i></a>
+                  <a href='javascript:;' onclick='publish(<%=i%>);' id="card<%=i%>" title="Publish Travel">
+                    <% if(port_publish[i]===false) { %>
+                      <i class="bi bi-box-arrow-up-right"></i>
+                      <% }else{ %>
+                        <i class="bi bi-x-square"></i>
+                        <% } %>
+                  </a>
                 </div>
-                
-              </div>
-              <div class="portfolio-links">
-								<a href=<%=`${port_link}${i}`%> title="View Travel"><i class="bi bi-eye-fill"></i></i></a>
-                <a href='javascript:;' onclick='publish(<%=i%>);' id="card<%=i%>" title="Publish Travel">
-                  <% if(port_publish[i]===false) { %>
-                    <i class="bi bi-box-arrow-up-right"></i>
-                  <% }else{ %>
-                    <i class="bi bi-x-square"></i>
-                  <% } %>
-                </a>
               </div>
             </div>
-          </div>
-          <% } %>
-        </div> 
-        
-          
+            <% } %>
+        </div>
+
+
       </div>
     </section>
     <div class="modal fade" id="addJourney" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Bon Voyage!</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body mx-3">
-                    <div class="md-form mb-3">
-                        <label data-error="wrong" data-success="right" for="lat_box">Name your Voyage</label>
-                        <input type="text" id="jname" class="form-control validate">
-                    </div>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-unique border"><i class="fas fa-paper-plane-o ml-1">Start my Journey!</i></button>
-                </div>
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Bon Voyage!</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-3">
+              <label data-error="wrong" data-success="right" for="lat_box">Name your Voyage</label>
+              <input type="text" id="jname" class="form-control validate">
             </div>
+            <div class="md-form">
+                        <i class="fas fa-pencil prefix grey-text"></i>
+                        <label data-error="wrong" data-success="right" for="form8">A Brief Description</label>
+                        <textarea type="text" id="jdesc" class="md-textarea form-control" rows="4"></textarea>
+            </div>
+            </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-unique border" onclick="add_journey_new()"><i class="fas fa-paper-plane-o ml-1">Start
+                my Journey!</i></button>
+          </div>
         </div>
+      </div>
     </div>
 
   </main><!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="/assets/vendor/purecounter/purecounter.js"></script>

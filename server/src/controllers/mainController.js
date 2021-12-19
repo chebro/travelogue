@@ -22,7 +22,7 @@ exports.getTravels = wrapAsync(async (req, res) => {
 	for(let i = 0; i < user.journeys.length; i++) {
 		isPublished.push(user.journeys[i].published)
 		journeyTitles.push(user.journeys[i].title)	
-		portImage.push(user.journey[i].title)
+		portImage.push(user.journeys[i].image)
 	}
 	const inject = {
 		name,
