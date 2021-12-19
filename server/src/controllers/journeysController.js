@@ -64,6 +64,13 @@ exports.addLocation = wrapAsync(async (req, res) => {
 })
 
 exports.createJourney = wrapAsync(async (req, res) => {
+	let userInfo = await User.findOne({ name: req.body.name })
+	if(!userInfo) {
+		res.status(400).json({
+			status: 'fail',
+			message: 'bad request'
+		})
+	}
 	userInfo.journeys.push({
 		name: req.body.jname,
 		description: req.body.jdesc
