@@ -13,21 +13,22 @@ exports.setPublished = wrapAsync(async (req, res) => {
 		})
 	}
 	userInfo.journeys[req.body.journey_no].published = true
-	await Feed.create({
+	await User.findOneAndUpdate({ name: user }, userInfo)
+	const newFeed = await Feed.create({
 		authorName: userInfo.name,
 		feedTitle: userInfo.journeys[req.body.journey_no].title,
 		feedText: userInfo.journeys[req.body.journey_no].description,
-		feedImage: userInfo.journeys[req.body.journey_no].image
+		feedImage: userInfo.journeys[req.body.journey_no].image,
+		journey_no: req.body.journey_no
 	})
-	await User.findOneAndUpdate({ user }, userInfo)
 	res.status(200).json({
-		status:'success'	
+		status:'success',
+		data: newFeed
 	})
 })
 
 exports.getCoords = wrapAsync(async (req, res) => {
 	const user = req.body.uname
-	console.log(req.body)
 	let userInfo = await User.findOne({ name: user })
 	if(!userInfo) {
 		res.status(400).json({
@@ -73,7 +74,8 @@ exports.createJourney = wrapAsync(async (req, res) => {
 	}
 	userInfo.journeys.push({
 		title: req.body.jname,
-		description: req.body.jdesc
+		description: req.body.jdesc,
+		published: false
 	})
 	await User.findOneAndUpdate({ name: req.body.name }, userInfo)
 	res.status(200).json({
