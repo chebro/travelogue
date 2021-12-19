@@ -1,5 +1,5 @@
 const User = require('../models/userModel')
-//TODO: create published schema
+const Feed = require('../models/feedModel')
 const wrapAsync = require('../utils/wrapAsync')
 
 exports.setPublished = wrapAsync(async (req, res) => {
@@ -13,6 +13,12 @@ exports.setPublished = wrapAsync(async (req, res) => {
 		})
 	}
 	userInfo.journeys[req.body.journey_no].published = true
+	await Feed.create({
+		authorName: userInfo.name,
+		feedTitle: userInfo.journeys[req.body.journey_no].title,
+		feedText: userInfo.journeys[req.body.journey_no].description,
+		feedImage: userInfo.journeys[req.body.journey_no].image
+	})
 	await User.findOneAndUpdate({ user }, userInfo)
 	res.status(200).json({
 		status:'success'	
@@ -37,7 +43,6 @@ exports.getCoords = wrapAsync(async (req, res) => {
 
 exports.addLocation = wrapAsync(async (req, res) => {
 	const user = req.body.uname
-	// todo: insert journey to published db
 	let userInfo = await User.findOne({ name: user })
 	if(!userInfo) {
 		res.status(400).json({
@@ -45,7 +50,6 @@ exports.addLocation = wrapAsync(async (req, res) => {
 			message: 'bad request'
 		})
 	}
-	//lat, long, title, description
 	userInfo.journeys[req.body.journey_no].destinations.push({
 		lat: req.body.lat,
 		long: req.body.long,
@@ -59,4 +63,14 @@ exports.addLocation = wrapAsync(async (req, res) => {
 	})
 })
 
+exports.createJourney = wrapAsync(async (req, res) => {
+	userInfo.journeys.push({
+		name: req.body.jname,
+		description: req.body.jdesc
+	})
+	await User.create({ user }, userInfo)
+	res.status(200).json({
+		status:'success'	
+	})
+})
 
