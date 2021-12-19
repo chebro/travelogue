@@ -45,4 +45,5 @@ exports.getMap = wrapAsync(async (req, res) => {
 		journey_no: journey,
 		profile_pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
 	}
+	res.status(200).render('travel_map', inject)
 })
