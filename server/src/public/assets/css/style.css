@@ -8,8 +8,12 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css2?family=Licorice&family=Monoton&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 body {
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'PT Sans', sans-serif;
 	color: #272829;
 }
 
