@@ -35,11 +35,11 @@ exports.getCoords = wrapAsync(async (req, res) => {
 	})
 })
 
-exports.addLocation = wrapasync(async (req, res) => {
+exports.addLocation = wrapAsync(async (req, res) => {
 	const user = req.body.uname
 	// todo: insert journey to published db
-	let userinfo = await User.findone({ name: user })
-	if(!userinfo) {
+	let userInfo = await User.findone({ name: user })
+	if(!userInfo) {
 		res.status(400).json({
 			status: 'fail',
 			message: 'bad request'
