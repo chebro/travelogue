@@ -1,6 +1,8 @@
 // Initialize and add the map
 
 var coords = []
+var text = []
+var titles = []
 var map = null
 function initMap(latitude, longitude, zoom) {
 	// The location of Uluru
@@ -14,10 +16,11 @@ function initMap(latitude, longitude, zoom) {
 	console.log('Map Initialised')
 }
 
-function add_marker(latitude, longitude) {
+function add_marker(latitude, longitude,number) {
 	const uluru = { lat: latitude, lng: longitude }
 	const marker = new google.maps.Marker({
 		position: uluru,
+		label:`${number}`,
 		map: map,
 	})
 	coords.push(uluru)
@@ -28,8 +31,8 @@ function add_marker(latitude, longitude) {
 		(function (marker) {
 			return function () {
 				//Query text for
-				$('#display_modal_title').text('Sample Modal')
-				$('#display_modal_body').text('Lorem Ipsum')
+				$('#display_modal_title').text(titles[number-1])
+				$('#display_modal_body').text(text[number-1])
 				$('#display_modal').modal('show')
 			}
 		})(marker)
@@ -54,18 +57,64 @@ function draw_lines_and_adjust_zoom() {
 
 function setup_travel() {
 	//database query results have to be available here
+	var data={
+		uname,
+		journey_no,		
+	}
+	fetch('/api/journeys/coordinates', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	}).then(res=>res.json()).then((res)=>{
 
-	//
-	initMap(-25.344, 131.036, 4)
-	add_marker(-25.344, 131.036)
-	add_marker(-24.344, 130.036)
-	add_marker(20.344, 0.036)
-
-	draw_lines_and_adjust_zoom()
+		let coo=res.data.destinations;
+		initMap(-25.344, 131.036, 4)
+		for(let i=0;i<coo.length;i++){
+			add_marker(coo[i].lat,coo[i].long,i+1);
+			text.push(coo[i].description)
+			titles.push(coo[i].title)
+		}
+		// add_marker(-25.344, 131.036)
+		// add_marker(-24.344, 130.036)
+		// add_marker(20.344, 0.036)
+		draw_lines_and_adjust_zoom()
+	})
 }
 
 function add_destination() {
 	$('#addLocation').modal('show')
+}
+
+function add_destination_loc() {
+	let lat=$('#lat_box').val()
+	let long=$('#long_box').val()
+	let title=$('#title_box').val()
+	let description=$('#msg_box').val()
+	let data={
+		lat,
+		long,
+		title,
+		description,
+		journey_no,
+		uname
+	}
+	fetch('/api/journeys/addlocation', {
+		method: 'PUT',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	}).then(function(){
+		coords.push({
+			lat,
+			long
+		})
+		text.push(description)
+		titles.push(title)
+		add_marker(lat,long,text.length)
+	})
 }
 
 function update_location() {
